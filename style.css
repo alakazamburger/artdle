@@ -1,0 +1,27 @@
+body {
+  background-color: bisque;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+}
+
+tr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tabletextarea {
+  width: 100%;
+  height: 100%;
+  line-height: 100%;
+  text-align: center;
+  border-radius: 0%;
+  border: 1px solid grey;
+  resize: none;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.tabletextarea:focus {
+  outline: none;
+}
