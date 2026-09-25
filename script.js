@@ -32,9 +32,16 @@ for (let i = 0; i < ROWS; i++) {
       textareaClicked(i, j)
     })
 
-    inp.addEventListener('input', () => {
+    inp.addEventListener('input', (e) => {
+      // check if it was even a letter
+      var charAscii = e.target.value.charCodeAt()
+      if (charAscii < 97 || charAscii > 122) {
+        document.getElementById(inp.id).value = ''
+        return
+      }
+
       var numId = parseInt(inp.id)
-      if (inp.value.length === 1 && numId < ROWS*COLS) {
+      if (inp.value.length === 1) {
 
         if ((numId+1)%COLS === 0) {
           // last cell of row; check if row is all filled in
@@ -49,18 +56,16 @@ for (let i = 0; i < ROWS; i++) {
           var guess = charArr.join('').toUpperCase()
           var rowNum = Math.floor(numId/COLS)
           guessCheck(guess, rowNum)
-
-          return // would otherwise be going forward a row
         }
 
+        if (numId+1 >= ROWS*COLS) return // don't continue on to a nonexistent cell
         document.getElementById(numId+1).focus()
       }
     });
 
     inp.addEventListener('keydown', (e) => {
       var numId = parseInt(inp.id)
-      if (inp.value.length === 0 && e.key === 'Backspace' && numId >= 0) {
-        if (numId%COLS === 0) return // would otherwise be going back a row
+      if (inp.value.length === 0 && e.key === 'Backspace' && numId-1 >= 0) {
         document.getElementById(numId-1).focus()
       }
     })
@@ -81,22 +86,36 @@ function guessCheck(guess, row) {
   // colour in the squares
   const targetArr = theWord.split('')
   const guessArr = target.split('')
-  console.log(targetArr)
-  console.log(guessArr)
   var rowStart = row*COLS
 
   for (n = 0; n < 5; n++) {
+    var cell = document.getElementById(rowStart+n)
+
     if (targetArr[n] === guessArr[n]) {
       // green
-      document.getElementById(rowStart+n).style.backgroundColor = "#00ff00"
-    } else if (targetArr.includes(guessArr[n])) {
+      cell.style.backgroundColor = "#00d100"
+      targetArr[n] = "" // removes potential for double counting it when doing yellows
+    }
+
+    // disable text in cells now, might as well
+    cell.disabled = true
+  }
+
+  // must happen AFTER all greens are found (consider the As in 'APART' tested against 'PLACE')
+  for (n = 0; n < 5; n++) {
+    if (targetArr.includes(guessArr[n])) {
       // yellow
-      document.getElementById(rowStart+n).style.backgroundColor = "#ffff00"
+      document.getElementById(rowStart+n).style.backgroundColor = "#ffec3d"
+      targetArr[targetArr.indexOf(guessArr[n])] = ""
+
     } else {
       // grey
-      document.getElementById(rowStart+n).style.backgroundColor = "#aaaaaa"
+      if (document.getElementById(rowStart+n).style.backgroundColor !== "") continue // must be green/yellow - do NOT make this grey
+      document.getElementById(rowStart+n).style.backgroundColor = "#d8d8d8"
     }
   }
+
+
 }
 
 function textareaClicked(r, c) {
