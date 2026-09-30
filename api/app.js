@@ -53,7 +53,7 @@ export default async function handler(request, response) {
 
     // check against db (either returns the word or null)
     const result = await coll.findOne({
-      date: date,
+      dates: date,
       hints: inp
     })
 

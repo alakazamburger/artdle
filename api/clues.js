@@ -30,7 +30,7 @@ export default async function handler(request, response) {
 
     // check against db
     const result = await coll.findOne(
-      {date: date},
+      {dates: date},
       {projection: {_id: 0, clues: 1}}
     )
 

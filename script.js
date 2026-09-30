@@ -140,7 +140,7 @@ async function compareAgainstDb(inp, rowNum) { // rowNum is just passed right th
     const data = await response.json()
     
     if (!data?.colours) {
-      // not correct, unlock tiles/delete letters then return
+      // not correct, unlock tiles & delete letters then return
       var rowStart = rowNum*COLS
       for (let n = 0; n < 5; n++) {
         var cell = document.getElementById(rowStart+n)

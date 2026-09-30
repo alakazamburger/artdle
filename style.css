@@ -1,7 +1,6 @@
 body {
-  background-color: bisque;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: bold;
+  background-color: #def1c5;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
 }
 
@@ -15,6 +14,8 @@ tr {
   width: 100%;
   height: 100%;
   line-height: 100%;
+  font-family: Arial, sans-serif;
+  font-size: 100%;
   text-align: center;
   color: #000000;
   background-color: #ffffff;
