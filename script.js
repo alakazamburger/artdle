@@ -25,8 +25,7 @@ for (let i = 0; i < ROWS; i++) {
 
     inp.addEventListener('input', (e) => {
       // check if it was even a letter
-      var charAscii = e.target.value.charCodeAt()
-      if (charAscii < 97 || charAscii > 122) {
+      if (!e.target.value.match(/^[a-z]/i)) { // ! negates any truthy value to be false, and false to true
         document.getElementById(inp.id).value = ''
         return
       }
